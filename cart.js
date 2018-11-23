@@ -50,7 +50,7 @@ class Cart {
         } else { // no item with matching SKU found, add the item to the cart
             // check for availability of the item in the Inventory
             if (!Inventory.available(item)) {
-                throw "Quantity exceeds Inventory stored items";
+                throw "Can't add item to cart";
             }
             this.items.push(item);
         }
