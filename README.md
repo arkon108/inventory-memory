@@ -9,23 +9,30 @@ Run `npm test` in the script directory.
 ### Example output
 
 ```
-$ shop
+terminal-inventory $ shop
 Welcome to Inventory and Cart manager. Start by adding items to the Inventory
 
-INVENTORY> ADD 1 Tshirt 4 4
-INVENTORY> ADD 2 Book 15 40
+INVENTORY> ADD 1 Book 5 2.25
+INVENTORY> ADD 2 DVD 10 6.80
 INVENTORY> END
-CART> ADD 1 2
-CART> ADD 2 1
-CART> ADD 2 2
-CART> REMOVE 2 1
+CART> ADD 
+Invalid item input, expected [SKU QUANTITY]
+CART> ADD 1 4
+CART> ADD 1 5
+Can't add item to cart
+CART> ADD 1 1
+CART> ADD 2 4
+CART> ADD 3 3
+Can't add item to cart
 CART> CHECKOUT
-Tshirt 2 x 4 = 8
-Book 2 x 40 = 80
+Book 5 x 2.25 = 11.25
+DVD 4 x 6.8 = 27.2
 ---------------------------
-TOTAL: 88
+TOTAL: 38.45
 ---------------------------
 
 CART> END
 Thank you for shopping with us! Have a fantastic day!
+terminal-inventory $ 
+
 ```
