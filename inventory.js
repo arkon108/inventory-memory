@@ -1,5 +1,8 @@
 'use strict';
 
+const utils       = require('./utils');
+let Utils         = new utils;
+
 /**
  * Inventory contains items in the following format
  * Inventory.items = [
@@ -22,6 +25,9 @@ class Inventory {
      * @param array item 
      */
     add(item) {
+        if (!this.isValid(item)) {
+            throw "Invalid item input, expected [SKU NAME QUANTITY PRICE]";
+        }
         item = this.normalize(item);
         this.items.push(item);
     }
@@ -31,14 +37,32 @@ class Inventory {
      * @param int sku 
      */
     get(sku) {
-        return this.items.filter(i => i[0] == sku)[0];
+        let result = this.items.filter(i => i[0] == sku);
+        return result.length && result[0] || [];
     }
 
     /**
-     * Sets the full flag to indicate inventory being complete
+     * Produces TRUE if there is available amount of items in the Inventory
+     * @param array item 
      */
-    setFull() {
-        this.full = true;
+    available(item) {
+        let [sku, quantity] = item;
+        let stored = this.get(sku);
+
+        return stored.length && (stored[2] - quantity >= 0) || false; 
+    }
+
+    /**
+     * Predicate which returns TRUE if item is valid, FALSE otherwise
+     * @param array item 
+     */
+    isValid(item) {
+        return typeof item === "object" 
+            && item.length === 4
+            && Utils.isNumeric(item[0])
+            && typeof item[1] === "string"
+            && Utils.isNumeric(item[2])
+            && Utils.isNumeric(item[3]);
     }
 
     /**

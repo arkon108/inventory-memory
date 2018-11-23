@@ -23,7 +23,12 @@ iface.on('line', function(line) {
             case 'ADD':
                 var item = commands;
                 item.shift();
-                C.add(item);
+                try {
+                    C.add(item, I);
+                } catch (err) {
+                    console.log(err);
+                }
+                
                 break;
 
             case 'REMOVE':
@@ -53,12 +58,23 @@ iface.on('line', function(line) {
             case 'ADD':
                 let item = commands;
                 item.shift();
-                I.add(item);
+
+                try {
+                    I.add(item);
+                } catch (err) {
+                    console.log(err);
+                }
+                
                 break;
 
             case 'END':
-                iface.setPrompt(prompt_cart, prompt_cart.length);
-                I.setFull(true);
+                if (I.items.length > 0) {
+                    iface.setPrompt(prompt_cart, prompt_cart.length);
+                    I.full = true;
+                } else {
+                    console.log('Please ADD something to the inventory first');
+                }
+                
                 break;
 
             default:
